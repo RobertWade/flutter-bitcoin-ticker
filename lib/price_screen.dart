@@ -87,13 +87,11 @@ class _PriceScreenState extends State<PriceScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          //3: You'll need to use a Column Widget to contain the three CryptoCards.
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               CryptoCard(
                 cryptoCurrency: 'BTC',
-                //7. Finally, we use a ternary operator to check if we are waiting and if so, we'll display a '?' otherwise we'll show the actual price data.
                 value: isWaiting ? '?' : coinValues['BTC'],
                 selectedCurrency: selectedCurrency,
               ),
