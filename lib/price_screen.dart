@@ -49,7 +49,6 @@ class _PriceScreenState extends State<PriceScreen> {
     );
   }
 
-  //TODO: Create a method here called getData() to get the coin data from coin_data.dart
   dynamic getData(selectedIndex) async {
     dynamic data = await CoinData().getCoinData(selectedIndex);
     setState(() {
@@ -61,7 +60,7 @@ class _PriceScreenState extends State<PriceScreen> {
   @override
   void initState() {
     super.initState();
-    //TODO: Call getData() when the screen loads up.
+    getData(1);
   }
 
   @override
@@ -85,7 +84,6 @@ class _PriceScreenState extends State<PriceScreen> {
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
                 child: Text(
-                  //TODO: Update the Text Widget with the live bitcoin data here.
                   '1 BTC = $currentPrice $selectedCurrency',
                   textAlign: TextAlign.center,
                   style: TextStyle(
