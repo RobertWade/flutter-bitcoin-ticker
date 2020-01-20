@@ -38,12 +38,12 @@ class _PriceScreenState extends State<PriceScreen> {
     for (String currency in currenciesList) {
       pickerItems.add(Text(
         currency,
-        style: TextStyle(color: Colors.white),
+        style: TextStyle(color: Color(0xff21EBA6)),
       ));
     }
 
     return CupertinoPicker(
-      backgroundColor: Colors.lightBlue,
+      backgroundColor: Colors.transparent,
       itemExtent: 32.0,
       onSelectedItemChanged: (selectedIndex) {
         setState(() {
@@ -60,7 +60,7 @@ class _PriceScreenState extends State<PriceScreen> {
 
   void getData() async {
     isWaiting = true;
-    try {      
+    try {
       var data = await CoinData().getCoinData(selectedCurrency);
       isWaiting = false;
       setState(() {
@@ -81,7 +81,9 @@ class _PriceScreenState extends State<PriceScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('🤑 Coin Ticker'),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        title: Text('Coin Ticker'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -107,12 +109,15 @@ class _PriceScreenState extends State<PriceScreen> {
               ),
             ],
           ),
-
           Container(
             height: 150.0,
             alignment: Alignment.center,
-            padding: EdgeInsets.only(bottom: 30.0),
-            color: Colors.lightBlue,
+            padding: EdgeInsets.only(bottom: 30.0, top: 10.0),
+            decoration: BoxDecoration(
+              border: Border(
+                top: BorderSide(width: 2.0, color: Color(0xff21EBA6)),
+              ),
+            ),
             child: Platform.isIOS ? iOSPicker() : androidDropdown(),
           ),
         ],
@@ -121,9 +126,7 @@ class _PriceScreenState extends State<PriceScreen> {
   }
 }
 
-//1: Refactor this Padding Widget into a separate Stateless Widget called CryptoCard, so we can create 3 of them, one for each cryptocurrency.
 class CryptoCard extends StatelessWidget {
-  //2: You'll need to able to pass the selectedCurrency, value and cryptoCurrency to the constructor of this CryptoCard Widget.
   const CryptoCard({
     this.value,
     this.selectedCurrency,
@@ -136,26 +139,10 @@ class CryptoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
-      child: Card(
-        color: Colors.lightBlueAccent,
-        elevation: 5.0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
-          child: Text(
-            '1 $cryptoCurrency = $value $selectedCurrency',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 20.0,
-              color: Colors.white,
-            ),
-          ),
-        ),
-      ),
+    return ListTile(
+      contentPadding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
+      leading: Image(image: AssetImage('images/$cryptoCurrency.png')),
+      title: Text('1 $cryptoCurrency = $value $selectedCurrency'),
     );
   }
 }
